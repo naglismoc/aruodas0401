@@ -3,106 +3,70 @@ package org.example.models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class Plot {
-    public WebDriver driver;
-    public String region;
-    public String district;
-    public String quartal;
-    public String street;
+import java.util.List;
+
+public class Plot extends RealEstate{
     public String objNo;
-    public String rcNo;
+
     public String plotSize;
+
     public int[] intendances;
-    public int[] specials;
-    public boolean interestedChange;
-    public boolean auction;
-    public String notes_lt;
-    public String notes_en;
-    public String notes_ru;
-    public String[] photos;
-    public String video;
 
-    public String tour3d;
-
-    public String price;
-
-    public String phone;
-
-    public String email;
-    public boolean dontShowInAds;
-    public boolean cbdontWantChat;
-    public int accountType;
-    public boolean cbagreeToRules;
-
-    public Plot() {
-    }
-
-    public Plot(WebDriver driver, String region, String district, String quartal, String street, String objNo, String rcNo, String plotSize, int[] intendances, int[] specials, boolean interestedChange, boolean auction, String notes_lt, String notes_en, String notes_ru, String[] photos, String video, String tour3d, String price, String phone, String email, boolean dontShowInAds, boolean cbdontWantChat, int accountType, boolean cbagreeToRules) {
-        this.driver = driver;
-        this.region = region;
-        this.district = district;
-        this.quartal = quartal;
-        this.street = street;
+    public Plot(String region, String district, String quartal, String street, String rcNo, boolean interestedChange, boolean auction, String notes_lt, String notes_en, String notes_ru, String[] photos, String video, String tour3d, String price, String phone, String email, boolean dontShowInAds, boolean cbdontWantChat, int accountType, boolean cbagreeToRules, String[] specials, String objNo, String plotSize, int[] intendances) {
+        super( region, district, quartal, street, rcNo, interestedChange, auction, notes_lt, notes_en, notes_ru, photos, video, tour3d, price, phone, email, dontShowInAds, cbdontWantChat, accountType, cbagreeToRules, specials);
         this.objNo = objNo;
-        this.rcNo = rcNo;
         this.plotSize = plotSize;
         this.intendances = intendances;
-        this.specials = specials;
-        this.interestedChange = interestedChange;
-        this.auction = auction;
-        this.notes_lt = notes_lt;
-        this.notes_en = notes_en;
-        this.notes_ru = notes_ru;
-        this.photos = photos;
-        this.video = video;
-        this.tour3d = tour3d;
-        this.price = price;
-        this.phone = phone;
-        this.email = email;
-        this.dontShowInAds = dontShowInAds;
-        this.cbdontWantChat = cbdontWantChat;
-        this.accountType = accountType;
-        this.cbagreeToRules = cbagreeToRules;
     }
 
+    @Override
     public void fill() {
-        fillRegion();
-        fillDistrict();
-        fillQuartal();
-        fillStreet();
-
+        super.fill();
+        fillIntendances();
     }
 
-    private void fillStreet() {
-        this.driver.findElements(By.className("dropdown-input-value-title")).get(3).click();
-        wait(200);
-        this.driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")).sendKeys(this.street);//veliau reikes korekciju
-        wait(300);
-        this.driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")).sendKeys(Keys.ENTER);
-    }
-    private void fillQuartal() {
-        this.driver.findElements(By.className("dropdown-input-value-title")).get(2).click();
-        this.driver.findElements(By.className("dropdown-input-search-value")).get(1).sendKeys(this.quartal);//veliau reikes korekciju
-        wait(2000);
-        this.driver.findElements(By.className("dropdown-input-search-value")).get(1).sendKeys(Keys.ENTER);
-    }
-    private void fillDistrict() { //padaryti veliau
-//        this.driver.findElements(By.className("dropdown-input-value-title")).get(1).click();
-//        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.region);
-//        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
-    }
-    private void fillRegion() {
-        this.driver.findElements(By.className("dropdown-input-value-title")).get(0).click();
-        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.region);
-        wait(300);
-        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
+    private void fillIntendances() {
+
+
+        List<WebElement> intendances = driver.findElements(By.xpath("//input[@name='FIntendance[]']/following-sibling::label"));
+        for (int i = 0; i < this.intendances.length; i++) {
+            switch (this.intendances[i]){
+                case 1:
+                    intendances.get(0).click();
+                    break;
+                case 2:
+                    intendances.get(1).click();
+                    break;
+                case 3:
+                    intendances.get(2).click();
+                    break;
+                case 4:
+                    intendances.get(3).click();
+                    break;
+                case 5:
+                    intendances.get(4).click();
+                    break;
+                case 6:
+                    intendances.get(5).click();
+                    break;
+                case 7:
+                    intendances.get(6).click();
+                    break;
+                case 8:
+                    intendances.get(7).click();
+                    break;
+                case 9:
+                    intendances.get(8).click();
+                    break;
+                case 10:
+                    intendances.get(9).click();
+                    break;
+            }
+        }
     }
 
-    public void wait(int time){
-        try{
-            Thread.sleep(time);
-        }catch (Exception e){}
-    }
+
 
 }
